@@ -5,7 +5,7 @@ class ImageQFormer(nn.Module):
     def __init__(self):
         super().__init__()
         print("build model with qformerv2")
-        self.model = Blip2Model.from_pretrained("Salesforce/blip2-opt-2.7b", torch_dtype=self.norm.weight.dtype)
+        self.model = Blip2Model.from_pretrained("Salesforce/blip2-opt-2.7b")
         self.vision_model = None
         self.model.language_model = None
         self.model.language_projection = None

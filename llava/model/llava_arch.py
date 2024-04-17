@@ -21,7 +21,7 @@ import torch.nn as nn
 from .multimodal_encoder.builder import build_vision_tower
 from .multimodal_projector.builder import build_vision_projector
 # =================
-#from .multimodal_feature_selector.builder import build_vision_feature_selector
+from .multimodal_feature_selector.builder import build_vision_feature_selector
 # =================
 from llava.constants import IGNORE_INDEX, IMAGE_TOKEN_INDEX, DEFAULT_IMAGE_PATCH_TOKEN, DEFAULT_IM_START_TOKEN, DEFAULT_IM_END_TOKEN
 
@@ -39,7 +39,7 @@ class LlavaMetaModel:
 
             #============
             #if hasattr(config, "mm_vision_token_selector"):
-            #self.mm_feature_selector = build_vision_feature_selector(config)
+            self.mm_feature_selector = build_vision_feature_selector(config)
             #============
 
             if 'unpad' in getattr(config, 'mm_patch_merge_type', ''):
@@ -106,8 +106,8 @@ class LlavaMetaModel:
             self.mm_projector.load_state_dict(get_w(mm_projector_weights, 'mm_projector'))
 
         # ============
-        #if getattr(self, 'mm_feature_selector', None) is None:
-            #self.mm_feature_selector = build_vision_feature_selector(self.config)
+        if getattr(self, 'mm_feature_selector', None) is None:
+            self.mm_feature_selector = build_vision_feature_selector(self.config)
         # ============
 
 
@@ -155,7 +155,7 @@ class LlavaMetaForCausalLM(ABC):
         image_features = self.get_model().get_vision_tower()(images)
         image_features = self.get_model().mm_projector(image_features)
         # =================
-        #image_features = self.get_model().mm_feature_selector(image_features)
+        image_features = self.get_model().mm_feature_selector(image_features)
         # =================
         return image_features
 
