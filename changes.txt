@@ -1,0 +1,20 @@
+llava_arch.py:
+    LlavaMetaModel: added feature selector model to LlavaMetaModel "init" and to "initialize_vision_modules"
+    LlavaMetaForCausalLM:
+        "select_features": added feature selection as a function
+        "prepare_inputs_labels_for_multimodal": added feature selection in "encode_images" function for calculating "image_features". - problem could be that it is selecting features for each image separately from padded image tokens
+                                                nr of discarded features balances with the interpolation of high scoring features
+constants.py:
+    added comments with video related constants
+
+multimodal_feature_selector/builder.py:
+    added feature selector model builder
+    model constructor and forward pass
+    based on SPHINX
+    where do I send the qformer to the GPU?
+
+
+#TODO:
+- config: change config so that it has qformer information
+    - qformer projector type (at least)
+-Blip2QFormerModel from transformers, change code to output similarity values insteadof/together with the learned queries
