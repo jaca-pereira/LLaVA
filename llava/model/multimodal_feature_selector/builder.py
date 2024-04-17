@@ -1,5 +1,6 @@
 from transformers import Blip2Processor, Blip2Model, Blip2Config
 import torch
+import torch.nn as nn
 
 class ImageQFormer(nn.Module):
     def __init__(self):

@@ -106,7 +106,7 @@ class LlavaMetaModel:
             self.mm_projector.load_state_dict(get_w(mm_projector_weights, 'mm_projector'))
 
         # ============
-        if getattr(self, 'mm_feature_selector', None) is None:
+        #if getattr(self, 'mm_feature_selector', None) is None:
             self.mm_feature_selector = build_vision_feature_selector(self.config)
         # ============
 
